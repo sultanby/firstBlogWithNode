@@ -1,6 +1,6 @@
 const express = require('express')
 
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/my_database', {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -22,6 +22,9 @@ const expressSession = require('express-session');
 app.use(expressSession({
     secret: 'keyboard cat'
 }))
+
+const flash = require('connect-flash')
+app.use(flash())
 
 global.loggedIn = null;
 
@@ -51,7 +54,7 @@ app.listen(4000, ()=>{
 app.get('/',homeController)
 app.get('/post/:id',getPostController)
 app.post('/posts/store', authMiddleware, storePostController)
-app.get('/posts/new', authMiddleware,newPostController)
+app.get('/posts/new', authMiddleware, newPostController)
 app.get('/auth/register', redirectIfAuthenticatedMiddleware, newUserController)
 app.post('/users/register', redirectIfAuthenticatedMiddleware, storeUserController)
 app.get('/auth/login', redirectIfAuthenticatedMiddleware, loginController)
