@@ -1,7 +1,7 @@
 const express = require('express')
 
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/my_database', {
+mongoose.connect('mongodb+srv://my_database:321568@cluster0.j1wyv.mongodb.net/my_database', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
@@ -47,8 +47,12 @@ const loginController = require('./controllers/login')
 const loginUserController = require('./controllers/loginUser')
 const logoutController = require('./controllers/logout')
 
-app.listen(4000, ()=>{
-    console.log('App listening on port 4000')
+let port = process.env.PORT;
+if (port == null || port == "") {
+    port = 4000;
+}
+app.listen(port, ()=>{
+    console.log('App listening...')
 })
 
 app.get('/',homeController)
